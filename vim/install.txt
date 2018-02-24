@@ -1,0 +1,48 @@
+sudo apt-get install vim-gnome
+
+# Install pathogen plugin manager
+mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+# create ~/.vimrc
+echo "execute pathogen#infect()" > ~/.vimrc
+echo "syntax on" >> ~/.vimrc
+echo "filetype plugin indent on" >> ~/.vimrc
+
+# Install syntastic
+# https://vimawesome.com/plugin/syntastic
+cd ~/.vim/bundle
+git clone https://github.com/scrooloose/syntastic
+
+# Install nertree
+# https://github.com/scrooloose/nerdtree
+git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
+# map ctrl-n to open nertree
+echo "map <C-n> :NERDTreeToggle<CR>" >> ~/.vimrc
+
+# Install COMMAND-T 
+# https://vimawesome.com/plugin/command-t-ours
+cd ~/.vim/bundle
+git clone https://github.com/wincent/command-t 
+
+# Install youcompleteme
+# https://vimawesome.com/plugin/youcompleteme
+sudo apt-get install build-essential cmake
+sudo apt-get install python-dev python3-dev
+
+cd ~/.vim/bundle
+git clone https://github.com/valloric/youcompleteme
+cd ~/.vim/bundle/youcompleteme
+git submodule update --init --recursive
+# This only works on x64
+./install.py --clang-completer --js-completer
+
+# for 32-bit you just have to do
+./install.py --js-completer
+
+# Set tab settings
+echo "set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab" >> ~/.vimrc
+
+# Set default width/height
+echo "set lines=48 columns=128" >> ~/.vimrc
+
